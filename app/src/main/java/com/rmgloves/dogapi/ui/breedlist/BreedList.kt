@@ -17,11 +17,12 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rmgloves.dogapi.data.model.Breed
+import kotlinx.serialization.json.Json
 import timber.log.Timber
 
 @Composable
 fun BreedList(
-    goToBreed: (Breed) -> Unit
+    goToBreed: (String) -> Unit
 ) {
     val viewModel = hiltViewModel<BreedListViewModel>()
 
@@ -50,7 +51,7 @@ fun BreedList(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                goToBreed(breed)
+                                goToBreed(breed.encodeClass())
                             }
                             .padding(horizontal = 16.dp, vertical = 4.dp),
                         text = breed.getDisplayString(),
