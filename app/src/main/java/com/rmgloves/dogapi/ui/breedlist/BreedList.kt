@@ -16,11 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.rmgloves.dogapi.data.model.Breed
 import timber.log.Timber
 
 @Composable
 fun BreedList(
-    goToBreed: (String) -> Unit
+    goToBreed: (Breed) -> Unit
 ) {
     val viewModel = hiltViewModel<BreedListViewModel>()
 
@@ -44,15 +45,15 @@ fun BreedList(
             LazyColumn(
                 modifier = Modifier.fillMaxSize()
             ) {
-                items(immutableState.breedList) { breedName ->
+                items(immutableState.breedList) { breed ->
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                goToBreed(breedName)
+                                goToBreed(breed)
                             }
                             .padding(horizontal = 16.dp, vertical = 4.dp),
-                        text = breedName,
+                        text = breed.getDisplayString(),
                         style = typography.bodyLarge
                     )
                 }

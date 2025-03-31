@@ -1,6 +1,7 @@
 package com.rmgloves.dogapi.data
 
 import com.rmgloves.dogapi.R
+import com.rmgloves.dogapi.data.model.Breed
 import com.rmgloves.dogapi.data.model.ErrorMessage
 import com.rmgloves.dogapi.data.model.NetworkResult
 import com.rmgloves.dogapi.data.network.DogApiService
@@ -20,11 +21,18 @@ class DogRepository @Inject constructor(
 
     suspend fun getAllBreeds() = withContext(Dispatchers.IO) {
         try {
-            val result = dogApiService.getAllDogBreeds().message.flatMap { (breed, subBreeds) ->
-                listOf(breed.capitalize()) + subBreeds.map { "${it.capitalize()} ${breed.capitalize()}" }
-            }
+            val result = dogApiService.getAllDogBreeds().message
             if (result.isNotEmpty()) {
-                NetworkResult.Success(result)
+                val breedList = result.flatMap { (breed, subBreeds) ->
+                    if(subBreeds.isEmpty()) {
+                        listOf(Breed(breed))
+                    } else {
+                        subBreeds.map { sub ->
+                            Breed(breed = breed, subBreed = sub)
+                        }
+                    }
+                }
+                NetworkResult.Success(breedList)
             } else {
                 NetworkResult.Error(ErrorMessage.Resource(R.string.error_no_breeds))
             }
