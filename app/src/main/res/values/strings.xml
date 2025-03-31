@@ -2,8 +2,10 @@
     <string name="app_name">DogApi</string>
 
     <!-- Common -->
-    <string name = "okay">Okay</string>
-    <string name = "exit">Exit</string>
+    <string name="okay">Okay</string>
+    <string name="exit">Exit</string>
+    <string name="search">Search</string>
+    <string name="clear">Clear</string>
 
     <!-- Errors -->
     <string name="error_generic">Something went wrong</string>
