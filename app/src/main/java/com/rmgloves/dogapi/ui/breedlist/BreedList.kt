@@ -56,7 +56,10 @@ fun BreedList(
             var query by remember { mutableStateOf("") }
             val filteredBreeds = immutableState.breedList.filter {
                 val q = query.trim().lowercase()
-                it.breed.contains(q, ignoreCase = true) || it.subBreed?.contains(q, ignoreCase = true) == true
+                it.breed.contains(q, ignoreCase = true) || it.subBreed?.contains(
+                    q,
+                    ignoreCase = true
+                ) == true
             }
             Column(
                 modifier = Modifier.fillMaxSize()
@@ -85,7 +88,8 @@ fun BreedList(
     }
 }
 
-@Composable fun SearchField(
+@Composable
+fun SearchField(
     query: String,
     onChanged: (String) -> Unit
 ) {
@@ -101,7 +105,7 @@ fun BreedList(
             )
         },
         trailingIcon = {
-            if(query.isNotEmpty()) {
+            if (query.isNotEmpty()) {
                 IconButton(onClick = { onChanged("") }) {
                     Icon(
                         imageVector = Icons.Default.Close,
