@@ -37,29 +37,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DogApiApp() {
-    val viewModel = hiltViewModel<MainViewModel>()
-    val connectionState = viewModel.connectionStatus.collectAsState()
-    val snackbarHostState = remember { SnackbarHostState() }
-    val snackbarMessage = when (connectionState.value) {
-        ConnectionState.Connecting -> stringResource(R.string.network_connecting)
-        ConnectionState.NoConnection -> stringResource(R.string.network_not_connected)
-        else -> null
-
-    }
-    Timber.d("snackbarMessage $snackbarMessage")
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             DogApiNavigation()
-        }
-
-        LaunchedEffect(snackbarMessage) {
-            Timber.d("snackbar launched effect")
-            snackbarMessage?.let {
-                snackbarHostState.showSnackbar(
-                    message = snackbarMessage,
-                    duration = SnackbarDuration.Indefinite
-                )
-            } ?: snackbarHostState.currentSnackbarData?.dismiss()
         }
     }
 }
