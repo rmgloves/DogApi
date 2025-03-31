@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">DogApi</string>
 
-    <!-- Network Monitor -->
-    <string name="network_not_connected">No internet connection</string>
-    <string name="network_connecting">Connecting</string>
+    <!-- Common -->
+    <string name = "okay">Okay</string>
+    <string name = "exit">Exit</string>
+
+    <!-- Errors -->
+    <string name="error_generic">Something went wrong</string>
+    <string name="error_network">Network error</string>
+    <string name="error_no_breeds">We could not load the list of dog breeds, please try again</string>
 </resources>

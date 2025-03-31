@@ -1,6 +1,7 @@
 package com.rmgloves.dogapi.di
 
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import com.rmgloves.dogapi.data.network.DogApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val BASE_URL = "https://dog.ceo/api"
+    private const val BASE_URL = "https://dog.ceo/api/"
 
     @Provides
     @Singleton
@@ -34,6 +35,10 @@ object NetworkModule {
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
         json: Json
-    ) = Retrofit.Builder().baseUrl(BASE_URL).client(okHttpClient)
+    ) : Retrofit = Retrofit.Builder().baseUrl(BASE_URL).client(okHttpClient)
         .addConverterFactory(json.asConverterFactory("application/json".toMediaType())).build()
+
+    @Provides
+    @Singleton
+    fun provideDogApiService(retrofit: Retrofit) = retrofit.create(DogApiService::class.java)
 }
