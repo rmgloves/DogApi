@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">DogApi</string>
+
+    <!-- Network Monitor -->
+    <string name="network_not_connected">No internet connection</string>
+    <string name="network_connecting">Connecting</string>
+</resources>
