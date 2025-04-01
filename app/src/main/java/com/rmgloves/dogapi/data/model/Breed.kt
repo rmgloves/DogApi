@@ -23,3 +23,9 @@ data class Breed(val breed: String, val subBreed: String? = null) {
         }
     }
 }
+
+val testBreeds = listOf(
+    Breed(breed = "dachshund"),
+    Breed(breed = "husky"),
+    Breed(breed = "hound", subBreed = "afghan")
+)
