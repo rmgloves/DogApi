@@ -33,18 +33,18 @@ fun LoadingOverlay(showLoading: Boolean) {
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun LoadingOverlayLight() {
-    DogApiTheme {
+    ThemedPreview {
         LoadingOverlay(true)
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun LoadingOverlayDark() {
-    DogApiTheme {
+    ThemedPreview {
         LoadingOverlay(true)
     }
 }

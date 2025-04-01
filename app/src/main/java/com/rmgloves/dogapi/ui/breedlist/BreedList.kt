@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -28,6 +29,7 @@ import com.rmgloves.dogapi.data.model.testBreeds
 import com.rmgloves.dogapi.ui.common.AppAlertDialog
 import com.rmgloves.dogapi.ui.common.LoadingOverlay
 import com.rmgloves.dogapi.ui.common.SearchField
+import com.rmgloves.dogapi.ui.common.ThemedPreview
 import com.rmgloves.dogapi.ui.theme.DogApiTheme
 
 @Composable
@@ -58,10 +60,7 @@ fun BreedList(
                     }
                 )
             }
-            Text(
-                text = stringResource(R.string.breed_list_refresh_hint),
-                style = MaterialTheme.typography.bodyLarge
-            )
+            PullPrompt()
         }
 
         is BreedListState.Success -> {
@@ -111,18 +110,45 @@ fun BreedListDisplay(breeds: List<Breed>, goToBreed: (String) -> Unit) {
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun BreedDisplayListLight() {
-    DogApiTheme {
+fun PullPrompt() {
+    Text(
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 36.dp),
+        text = stringResource(R.string.breed_list_refresh_hint),
+        style = MaterialTheme.typography.titleMedium,
+        color = MaterialTheme.colorScheme.onSurface,
+        textAlign = TextAlign.Center
+    )
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Composable
+fun BreedDisplayListPreviewLight() {
+    ThemedPreview {
         BreedListDisplay(testBreeds) { }
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
-fun BreedDisplayListDark() {
-    DogApiTheme {
+fun BreedDisplayListPreviewDark() {
+    ThemedPreview {
         BreedListDisplay(testBreeds) { }
+    }
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Composable
+fun PullPromptPreviewLight() {
+    ThemedPreview {
+        PullPrompt()
+    }
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun PullPromptPreviewDark() {
+    ThemedPreview {
+        PullPrompt()
     }
 }

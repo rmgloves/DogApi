@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.rmgloves.dogapi.R
-import com.rmgloves.dogapi.ui.theme.DogApiTheme
 
 @Composable
 fun SearchField(
@@ -47,34 +46,34 @@ fun SearchField(
     )
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun SearchFieldPreviewLightEmpty() {
-    DogApiTheme {
+    ThemedPreview {
         SearchField("") { }
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun SearchFieldPreviewLightPopulated() {
-    DogApiTheme {
+    ThemedPreview {
         SearchField("Husky") { }
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun SearchFieldPreviewDarkEmpty() {
-    DogApiTheme {
+    ThemedPreview {
         SearchField("") { }
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun SearchFieldPreviewDarkPopulated() {
-    DogApiTheme {
+    ThemedPreview {
         SearchField("Husky") { }
     }
 }

@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.rmgloves.dogapi.ui.common.ThemedPreview
 
 val primaryLight = Color(0xFF3F6837)
 val onPrimaryLight = Color(0xFFFFFFFF)
@@ -94,7 +95,7 @@ val surfaceContainerHighDark = Color(0xFF272B25)
 val surfaceContainerHighestDark = Color(0xFF32362F)
 
 @Composable
-fun ColorSchemePreview(colorScheme: ColorScheme = MaterialTheme.colorScheme) {
+fun ColorSchemePreview() {
     val colors = listOf(
         "primary" to MaterialTheme.colorScheme.primary,
         "onPrimary" to MaterialTheme.colorScheme.onPrimary,
@@ -148,18 +149,18 @@ fun ColorSchemePreview(colorScheme: ColorScheme = MaterialTheme.colorScheme) {
     }
 }
 
-@Preview(name = "Light Theme Colors", showBackground = false, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun ColorSchemePreviewLight() {
-    DogApiTheme {
+    ThemedPreview {
         ColorSchemePreview()
     }
 }
 
-@Preview(name = "Dark Theme Colors", showBackground = false, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ColorSchemePreviewDark() {
-    DogApiTheme {
+    ThemedPreview {
         ColorSchemePreview()
     }
 }

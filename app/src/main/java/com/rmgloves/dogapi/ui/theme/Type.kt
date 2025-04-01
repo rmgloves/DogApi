@@ -1,5 +1,6 @@
 package com.rmgloves.dogapi.ui.theme
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -15,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rmgloves.dogapi.R
+import com.rmgloves.dogapi.ui.common.ThemedPreview
 
 val OpenSans = FontFamily(
     Font(R.font.open_sans_variable_font, FontWeight.Normal),
@@ -39,10 +41,42 @@ val Typography = Typography().copy(
     labelSmall = Typography().labelSmall.copy(fontFamily = OpenSans),
 )
 
-@Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
-fun TypographyPreview(typography: Typography = MaterialTheme.typography) {
-    DogApiTheme {
+fun TypographyPreviewLight(typography: Typography = MaterialTheme.typography) {
+    ThemedPreview {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text("Display Large", style = MaterialTheme.typography.displayLarge)
+            Text("Display Medium", style = MaterialTheme.typography.displayMedium)
+            Text("Display Small", style = MaterialTheme.typography.displaySmall)
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("Headline Large", style = MaterialTheme.typography.headlineLarge)
+            Text("Headline Medium", style = MaterialTheme.typography.headlineMedium)
+            Text("Headline Small", style = MaterialTheme.typography.headlineSmall)
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("Title Large", style = MaterialTheme.typography.titleLarge)
+            Text("Title Medium", style = MaterialTheme.typography.titleMedium)
+            Text("Title Small", style = MaterialTheme.typography.titleSmall)
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("Body Large", style = MaterialTheme.typography.bodyLarge)
+            Text("Body Medium", style = MaterialTheme.typography.bodyMedium)
+            Text("Body Small", style = MaterialTheme.typography.bodySmall)
+
+            Spacer(modifier = Modifier.height(8.dp))
+            Text("Label Large", style = MaterialTheme.typography.labelLarge)
+            Text("Label Medium", style = MaterialTheme.typography.labelMedium)
+            Text("Label Small", style = MaterialTheme.typography.labelSmall)
+        }
+    }
+}
+
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun TypographyPreviewDark(typography: Typography = MaterialTheme.typography) {
+    ThemedPreview {
         Column(modifier = Modifier.padding(16.dp)) {
             Text("Display Large", style = MaterialTheme.typography.displayLarge)
             Text("Display Medium", style = MaterialTheme.typography.displayMedium)

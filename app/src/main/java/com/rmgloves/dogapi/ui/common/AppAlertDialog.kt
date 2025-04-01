@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.DialogProperties
 import com.rmgloves.dogapi.R
 import com.rmgloves.dogapi.data.model.ErrorMessage
-import com.rmgloves.dogapi.ui.theme.DogApiTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,7 +53,11 @@ fun AppAlertDialog(
         ) {
             Column(modifier = Modifier.padding(16.dp)) {
                 title?.let {
-                    Text(text = it, style = MaterialTheme.typography.headlineSmall, color = MaterialTheme.colorScheme.onSurface)
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.onSurface
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
                 }
                 Text(
@@ -63,7 +66,9 @@ fun AppAlertDialog(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Row(
-                    modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 16.dp),
                     horizontalArrangement = Arrangement.End
                 ) {
                     dismissLabel?.let {
@@ -84,18 +89,18 @@ fun AppAlertDialog(
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun AppAlertDialogPreviewBasicLight() {
-    DogApiTheme {
+    ThemedPreview {
         AppAlertDialog()
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_NO)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
 @Composable
 fun AppAlertDialogPreviewFullLight() {
-    DogApiTheme {
+    ThemedPreview {
         AppAlertDialog(
             title = stringResource(R.string.error),
             dismissLabel = stringResource(R.string.cancel)
@@ -103,18 +108,18 @@ fun AppAlertDialogPreviewFullLight() {
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun AppAlertDialogPreviewBasicDark() {
-    DogApiTheme {
+    ThemedPreview {
         AppAlertDialog()
     }
 }
 
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun AppAlertDialogPreviewFullDark() {
-    DogApiTheme {
+    ThemedPreview {
         AppAlertDialog(
             title = stringResource(R.string.error),
             dismissLabel = stringResource(R.string.cancel)

@@ -22,7 +22,7 @@ class DogRepository @Inject constructor(
     suspend fun getAllBreeds() = withContext(Dispatchers.IO) {
         try {
             val result = dogApiService.getAllDogBreeds().message
-            if (result.isNotEmpty()) {
+            if (result.isEmpty()) {
                 val breedList = result.flatMap { (breed, subBreeds) ->
                     if(subBreeds.isEmpty()) {
                         listOf(Breed(breed))
