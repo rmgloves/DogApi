@@ -9,7 +9,7 @@ import java.net.URLEncoder
 @Serializable
 data class Breed(val breed: String, val subBreed: String? = null) {
     fun getDisplayString() = (subBreed?.capitalize()?.plus(" ") ?: "") + breed.capitalize()
-    fun getImageIdentifier() = breed + (subBreed?.let { "-$it" } ?: "")
+    fun getImagesIdentifier() = breed + (subBreed?.let { "/$it" } ?: "")
     fun encodeClass(): String = try {
         URLEncoder.encode(Json.encodeToString(this), "UTF-8")
     } catch (e: Exception) {
