@@ -44,29 +44,29 @@ val Typography = Typography().copy(
 fun TypographyPreview(typography: Typography = MaterialTheme.typography) {
     DogApiTheme {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text("Display Large", style = typography.displayLarge)
-            Text("Display Medium", style = typography.displayMedium)
-            Text("Display Small", style = typography.displaySmall)
+            Text("Display Large", style = MaterialTheme.typography.displayLarge)
+            Text("Display Medium", style = MaterialTheme.typography.displayMedium)
+            Text("Display Small", style = MaterialTheme.typography.displaySmall)
 
             Spacer(modifier = Modifier.height(8.dp))
-            Text("Headline Large", style = typography.headlineLarge)
-            Text("Headline Medium", style = typography.headlineMedium)
-            Text("Headline Small", style = typography.headlineSmall)
+            Text("Headline Large", style = MaterialTheme.typography.headlineLarge)
+            Text("Headline Medium", style = MaterialTheme.typography.headlineMedium)
+            Text("Headline Small", style = MaterialTheme.typography.headlineSmall)
 
             Spacer(modifier = Modifier.height(8.dp))
-            Text("Title Large", style = typography.titleLarge)
-            Text("Title Medium", style = typography.titleMedium)
-            Text("Title Small", style = typography.titleSmall)
+            Text("Title Large", style = MaterialTheme.typography.titleLarge)
+            Text("Title Medium", style = MaterialTheme.typography.titleMedium)
+            Text("Title Small", style = MaterialTheme.typography.titleSmall)
 
             Spacer(modifier = Modifier.height(8.dp))
-            Text("Body Large", style = typography.bodyLarge)
-            Text("Body Medium", style = typography.bodyMedium)
-            Text("Body Small", style = typography.bodySmall)
+            Text("Body Large", style = MaterialTheme.typography.bodyLarge)
+            Text("Body Medium", style = MaterialTheme.typography.bodyMedium)
+            Text("Body Small", style = MaterialTheme.typography.bodySmall)
 
             Spacer(modifier = Modifier.height(8.dp))
-            Text("Label Large", style = typography.labelLarge)
-            Text("Label Medium", style = typography.labelMedium)
-            Text("Label Small", style = typography.labelSmall)
+            Text("Label Large", style = MaterialTheme.typography.labelLarge)
+            Text("Label Medium", style = MaterialTheme.typography.labelMedium)
+            Text("Label Small", style = MaterialTheme.typography.labelSmall)
         }
     }
 }

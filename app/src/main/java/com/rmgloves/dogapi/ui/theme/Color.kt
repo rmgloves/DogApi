@@ -96,34 +96,34 @@ val surfaceContainerHighestDark = Color(0xFF32362F)
 @Composable
 fun ColorSchemePreview(colorScheme: ColorScheme = MaterialTheme.colorScheme) {
     val colors = listOf(
-        "primary" to colorScheme.primary,
-        "onPrimary" to colorScheme.onPrimary,
-        "primaryContainer" to colorScheme.primaryContainer,
-        "onPrimaryContainer" to colorScheme.onPrimaryContainer,
+        "primary" to MaterialTheme.colorScheme.primary,
+        "onPrimary" to MaterialTheme.colorScheme.onPrimary,
+        "primaryContainer" to MaterialTheme.colorScheme.primaryContainer,
+        "onPrimaryContainer" to MaterialTheme.colorScheme.onPrimaryContainer,
 
-        "secondary" to colorScheme.secondary,
-        "onSecondary" to colorScheme.onSecondary,
-        "secondaryContainer" to colorScheme.secondaryContainer,
-        "onSecondaryContainer" to colorScheme.onSecondaryContainer,
+        "secondary" to MaterialTheme.colorScheme.secondary,
+        "onSecondary" to MaterialTheme.colorScheme.onSecondary,
+        "secondaryContainer" to MaterialTheme.colorScheme.secondaryContainer,
+        "onSecondaryContainer" to MaterialTheme.colorScheme.onSecondaryContainer,
 
-        "tertiary" to colorScheme.tertiary,
-        "onTertiary" to colorScheme.onTertiary,
-        "tertiaryContainer" to colorScheme.tertiaryContainer,
-        "onTertiaryContainer" to colorScheme.onTertiaryContainer,
+        "tertiary" to MaterialTheme.colorScheme.tertiary,
+        "onTertiary" to MaterialTheme.colorScheme.onTertiary,
+        "tertiaryContainer" to MaterialTheme.colorScheme.tertiaryContainer,
+        "onTertiaryContainer" to MaterialTheme.colorScheme.onTertiaryContainer,
 
-        "error" to colorScheme.error,
-        "onError" to colorScheme.onError,
-        "errorContainer" to colorScheme.errorContainer,
-        "onErrorContainer" to colorScheme.onErrorContainer,
+        "error" to MaterialTheme.colorScheme.error,
+        "onError" to MaterialTheme.colorScheme.onError,
+        "errorContainer" to MaterialTheme.colorScheme.errorContainer,
+        "onErrorContainer" to MaterialTheme.colorScheme.onErrorContainer,
 
-        "background" to colorScheme.background,
-        "onBackground" to colorScheme.onBackground,
-        "surface" to colorScheme.surface,
-        "onSurface" to colorScheme.onSurface,
+        "background" to MaterialTheme.colorScheme.background,
+        "onBackground" to MaterialTheme.colorScheme.onBackground,
+        "surface" to MaterialTheme.colorScheme.surface,
+        "onSurface" to MaterialTheme.colorScheme.onSurface,
 
-        "surfaceVariant" to colorScheme.surfaceVariant,
-        "onSurfaceVariant" to colorScheme.onSurfaceVariant,
-        "outline" to colorScheme.outline
+        "surfaceVariant" to MaterialTheme.colorScheme.surfaceVariant,
+        "onSurfaceVariant" to MaterialTheme.colorScheme.onSurfaceVariant,
+        "outline" to MaterialTheme.colorScheme.outline
     )
 
     Column(modifier = Modifier

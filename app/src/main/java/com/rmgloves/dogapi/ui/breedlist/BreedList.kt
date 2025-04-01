@@ -13,10 +13,11 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme.typography
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,19 +29,39 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.rmgloves.dogapi.R
-import timber.log.Timber
+import com.rmgloves.dogapi.ui.common.AppAlertDialog
 
 @Composable
 fun BreedList(
     goToBreed: (String) -> Unit
 ) {
     val viewModel = hiltViewModel<BreedListViewModel>()
-
     val state = viewModel.state.collectAsStateWithLifecycle()
+    var showDialog by remember { mutableStateOf(false) }
+    LaunchedEffect(state) {
+        showDialog = state.value is BreedListState.Error
+    }
 
     when (val immutableState = state.value) {
         is BreedListState.Error -> {
-            Timber.d(immutableState.errorMessage.toString())
+            if (showDialog) {
+                AppAlertDialog(
+                    message = immutableState.errorMessage,
+                    confirmLabel = stringResource(R.string.retry),
+                    dismissLabel = stringResource(R.string.cancel),
+                    onConfirm = {
+                        showDialog = false
+                        viewModel.loadBreeds()
+                    },
+                    onDismiss = {
+                        showDialog = false
+                    }
+                )
+            }
+            Text(
+                text = stringResource(R.string.breed_list_refresh_hint),
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
 
         BreedListState.Loading -> {
@@ -79,7 +100,7 @@ fun BreedList(
                                 }
                                 .padding(horizontal = 16.dp, vertical = 4.dp),
                             text = breed.getDisplayString(),
-                            style = typography.bodyLarge
+                            style = MaterialTheme.typography.bodyLarge
                         )
                     }
                 }
@@ -101,12 +122,14 @@ fun SearchField(
         placeholder = {
             Text(
                 text = stringResource(R.string.search),
-                style = typography.titleSmall
+                style = MaterialTheme.typography.titleSmall
             )
         },
         trailingIcon = {
             if (query.isNotEmpty()) {
-                IconButton(onClick = { onChanged("") }) {
+                IconButton(
+                    onClick = { onChanged("") }
+                ) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = stringResource(R.string.clear)
