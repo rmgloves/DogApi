@@ -8,8 +8,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -30,7 +34,7 @@ import com.rmgloves.dogapi.ui.common.AppAlertDialog
 import com.rmgloves.dogapi.ui.common.LoadingOverlay
 import com.rmgloves.dogapi.ui.common.SearchField
 import com.rmgloves.dogapi.ui.common.ThemedPreview
-import com.rmgloves.dogapi.ui.theme.DogApiTheme
+import kotlinx.coroutines.delay
 
 @Composable
 fun BreedList(
@@ -43,7 +47,6 @@ fun BreedList(
     LaunchedEffect(state.value) {
         showDialog = state.value is BreedListState.Error
     }
-
     when (val immutableState = state.value) {
         is BreedListState.Error -> {
             if (showDialog) {
@@ -60,7 +63,9 @@ fun BreedList(
                     }
                 )
             }
-            PullPrompt()
+            PullPrompt {
+                viewModel.loadBreeds()
+            }
         }
 
         is BreedListState.Success -> {
@@ -110,15 +115,30 @@ fun BreedListDisplay(breeds: List<Breed>, goToBreed: (String) -> Unit) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PullPrompt() {
-    Text(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 36.dp),
-        text = stringResource(R.string.breed_list_refresh_hint),
-        style = MaterialTheme.typography.titleMedium,
-        color = MaterialTheme.colorScheme.onSurface,
-        textAlign = TextAlign.Center
-    )
+fun PullPrompt(refresh: () -> Unit) {
+    var refreshing by remember { mutableStateOf(false) }
+
+    PullToRefreshBox(
+        modifier = Modifier.fillMaxSize(),
+        isRefreshing = refreshing,
+        onRefresh = {
+            refreshing = true
+            refresh()
+        }
+    ) {
+        Text(
+            modifier = Modifier
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 36.dp),
+            text = stringResource(R.string.breed_list_refresh_hint),
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Center
+        )
+    }
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)
@@ -141,7 +161,7 @@ fun BreedDisplayListPreviewDark() {
 @Composable
 fun PullPromptPreviewLight() {
     ThemedPreview {
-        PullPrompt()
+        PullPrompt {}
     }
 }
 
@@ -149,6 +169,6 @@ fun PullPromptPreviewLight() {
 @Composable
 fun PullPromptPreviewDark() {
     ThemedPreview {
-        PullPrompt()
+        PullPrompt {}
     }
 }

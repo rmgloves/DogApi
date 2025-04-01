@@ -5,7 +5,6 @@ import com.rmgloves.dogapi.data.model.Breed
 import com.rmgloves.dogapi.data.model.ErrorMessage
 import com.rmgloves.dogapi.data.model.NetworkResult
 import com.rmgloves.dogapi.data.network.DogApiService
-import com.rmgloves.dogapi.util.capitalize
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okio.IOException
@@ -22,9 +21,9 @@ class DogRepository @Inject constructor(
     suspend fun getAllBreeds() = withContext(Dispatchers.IO) {
         try {
             val result = dogApiService.getAllDogBreeds().message
-            if (result.isEmpty()) {
+            if (result.isNotEmpty()) {
                 val breedList = result.flatMap { (breed, subBreeds) ->
-                    if(subBreeds.isEmpty()) {
+                    if (subBreeds.isEmpty()) {
                         listOf(Breed(breed))
                     } else {
                         subBreeds.map { sub ->
@@ -45,6 +44,5 @@ class DogRepository @Inject constructor(
                 ErrorMessage.Literal(it)
             } ?: ErrorMessage.Resource(R.string.error_generic))
         }
-
     }
 }

@@ -8,6 +8,7 @@ import com.rmgloves.dogapi.data.model.ErrorMessage
 import com.rmgloves.dogapi.data.model.NetworkResult
 import com.rmgloves.dogapi.util.capitalize
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
