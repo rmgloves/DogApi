@@ -1,3 +1,5 @@
+import org.gradle.internal.composite.CommandLineIncludedBuildSettingsLoader
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -78,4 +80,8 @@ dependencies {
 
     // Kotlin serialization
     implementation(libs.kotlinx.serialization.json)
+
+    // Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
 }

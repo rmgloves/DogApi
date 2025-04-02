@@ -16,5 +16,6 @@
     <string name="error_no_breeds">We could not load the list of dog breeds, please try again</string>
 
     <!-- Breed List -->
-    <string name="breed_list_refresh_hint">No data loaded, please pull to refresh</string>
+    <string name="breed_list_refresh_hint">No breeds loaded</string>
+    <string name="breed_list_no_match">No breeds match your query</string>
 </resources>

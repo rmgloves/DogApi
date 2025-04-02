@@ -14,14 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
-import com.rmgloves.dogapi.ui.theme.DogApiTheme
 
 @Composable
 fun LoadingOverlay(showLoading: Boolean) {
     AnimatedVisibility(
-        visible = showLoading,
-        enter = fadeIn(),
-        exit = fadeOut()
+        visible = showLoading, enter = fadeIn(), exit = fadeOut()
     ) {
         Box(
             modifier = Modifier

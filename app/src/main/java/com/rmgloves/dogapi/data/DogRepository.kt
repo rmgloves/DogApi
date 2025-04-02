@@ -10,16 +10,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okio.IOException
 import retrofit2.HttpException
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
-
 
 @Singleton
 class DogRepository @Inject constructor(
     private val dogApiService: DogApiService
 ) {
     suspend fun getAllBreeds(): NetworkResult<List<Breed>> = safeApiCall {
+        Timber.d("Prepping call")
         val response = dogApiService.getAllDogBreeds()
+        Timber.d("Call complete count is ${response.message.size}")
         response.message.flatMap { (breed, subBreeds) ->
             if (subBreeds.isEmpty()) {
                 listOf(Breed(breed))

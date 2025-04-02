@@ -11,14 +11,14 @@ data class Breed(val breed: String, val subBreed: String? = null) {
     fun getDisplayString() = (subBreed?.capitalize()?.plus(" ") ?: "") + breed.capitalize()
     fun getImagesIdentifier() = breed + (subBreed?.let { "/$it" } ?: "")
     fun encodeClass(): String = try {
-        URLEncoder.encode(Json.encodeToString(this), "UTF-8")
+        URLEncoder.encode(Json.encodeToString(this), Charsets.UTF_8.name())
     } catch (e: Exception) {
         ""
     }
 
     companion object {
         fun decodeClass(encodedBreed: String): Breed {
-            val decoded = URLDecoder.decode(encodedBreed, "UTF-8")
+            val decoded = URLDecoder.decode(encodedBreed,  Charsets.UTF_8.name())
             return Json.decodeFromString<Breed>(decoded)
         }
     }

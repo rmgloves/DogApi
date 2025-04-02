@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.rmgloves.dogapi.ui.common.ThemedPreview
 
 val primaryLight = Color(0xFF3F6837)
@@ -127,20 +124,22 @@ fun ColorSchemePreview() {
         "outline" to MaterialTheme.colorScheme.outline
     )
 
-    Column(modifier = Modifier
-        .verticalScroll(rememberScrollState())) {
+    Column(
+        modifier = Modifier
+            .verticalScroll(rememberScrollState())
+    ) {
         colors.forEach { (label, color) ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(32.dp)
-                    .padding(vertical = 2.dp)
-                    .background(color, shape = RoundedCornerShape(2.dp)),
+                    .height(Dimens.SpaceXL)
+                    .padding(vertical = Dimens.SpaceXXS)
+                    .background(color, shape = MaterialTheme.shapes.extraSmall),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = label,
-                    modifier = Modifier.padding(start = 16.dp),
+                    modifier = Modifier.padding(start = Dimens.SpaceM),
                     style = MaterialTheme.typography.bodyMedium,
                     color = if (color.luminance() < 0.5f) Color.White else Color.Black
                 )
