@@ -23,4 +23,7 @@ object Dimens {
     val IconSizeMedium = 24.dp
     val IconSizeLarge = 32.dp
 
+    // Image sizes
+    val ImageSize = 100.dp
+
 }
