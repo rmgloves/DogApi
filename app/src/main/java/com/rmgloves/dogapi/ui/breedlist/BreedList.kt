@@ -3,6 +3,7 @@
 package com.rmgloves.dogapi.ui.breedlist
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -93,14 +95,16 @@ fun BreedListDisplay(breeds: List<Breed>, query: String = "", goToBreed: (String
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = Dimens.SpaceM),
+            .background(MaterialTheme.colorScheme.primaryContainer),
     ) {
         if (breeds.isEmpty()) {
             val messageRes =
                 if (query.isEmpty()) R.string.breed_list_refresh_hint else R.string.breed_list_no_match
             item {
                 Text(
-                    modifier = Modifier.fillMaxWidth().padding(top = Dimens.SpaceM),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = Dimens.SpaceM),
                     text = stringResource(messageRes),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleMedium
@@ -108,18 +112,46 @@ fun BreedListDisplay(breeds: List<Breed>, query: String = "", goToBreed: (String
             }
         } else {
             items(breeds) { breed ->
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable {
-                            goToBreed(breed.encodeClass())
-                        }
-                        .padding(horizontal = Dimens.SpaceM, vertical = Dimens.SpaceM),
-                    text = breed.getDisplayString(),
-                    style = MaterialTheme.typography.bodyLarge)
+                if(breed.hasSubBreeds) {
+                    BreedHeaderItem(breed)
+                } else {
+                    BreedListItem(breed) {
+                        goToBreed(breed.encodeClass())
+                    }
+                }
             }
         }
     }
+}
+
+@Composable
+fun BreedListItem(breed: Breed, onClick: () -> Unit) {
+    HorizontalDivider()
+    Text(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.secondaryContainer)
+            .clickable {
+                onClick()
+            }
+            .padding(horizontal = Dimens.SpaceM, vertical = Dimens.SpaceM),
+        text = breed.getDisplayString(),
+        color = MaterialTheme.colorScheme.onSecondaryContainer,
+        style = MaterialTheme.typography.bodyLarge
+    )
+}
+
+@Composable
+fun BreedHeaderItem(breed: Breed) {
+    Text(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.onPrimaryContainer)
+            .padding(horizontal = Dimens.SpaceM, vertical = Dimens.SpaceM),
+        text = breed.getDisplayString(),
+        color = MaterialTheme.colorScheme.onPrimary,
+        style = MaterialTheme.typography.titleLarge
+    )
 }
 
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO)

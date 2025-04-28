@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okio.IOException
 import retrofit2.HttpException
-import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -19,21 +18,17 @@ class DogRepository @Inject constructor(
     private val dogApiService: DogApiService
 ) {
     suspend fun getAllBreeds(): NetworkResult<List<Breed>> = safeApiCall {
-        Timber.d("Prepping call")
         val response = dogApiService.getAllDogBreeds()
-        Timber.d("Call complete count is ${response.message.size}")
         response.message.flatMap { (breed, subBreeds) ->
-            if (subBreeds.isEmpty()) {
-                listOf(Breed(breed))
-            } else {
-                subBreeds.map { sub ->
-                    Breed(breed = breed, subBreed = sub)
-                }
+            // if there is only 1 sub breed then just treat it as a dog without a sub breed
+            listOf(Breed(breed = breed, hasSubBreeds = subBreeds.size > 1)) +
+            subBreeds.map { sub ->
+                Breed(breed = breed, subBreed = sub)
             }
         }
     }
 
-    suspend fun getBreedImages(breed: Breed):NetworkResult<List<String>> = safeApiCall {
+    suspend fun getBreedImages(breed: Breed): NetworkResult<List<String>> = safeApiCall {
         dogApiService.getBreedImages(breed.getImagesIdentifier()).message
     }
 
