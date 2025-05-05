@@ -25,5 +25,4 @@ object Dimens {
 
     // Image sizes
     val ImageSize = 100.dp
-
 }

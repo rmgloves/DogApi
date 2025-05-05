@@ -1,6 +1,7 @@
 package com.rmgloves.dogapi.navigation
 
-import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.AnimatedContent
+import androidx.compose.animation.ContentTransform
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,22 +49,28 @@ fun DogApiNavigation() {
                     )
                 },
                 navigationIcon = {
-                    AnimatedVisibility(
-                        visible = showBackButton,
-                        enter = fadeIn(),
-                        exit = fadeOut()
-                    ) {
-                        IconButton(
-                            onClick = {
-                                navController.popBackStack()
-                            }
-                        ) {
-                            Icon(
-                                Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(R.string.back)
+                    AnimatedContent(
+                        targetState = showBackButton,
+                        transitionSpec = {
+                            ContentTransform(
+                                targetContentEnter = fadeIn(),
+                                initialContentExit = fadeOut()
                             )
+                        },
+                        label = "navigation transition"
+                    ) { show ->
+                        if (show) {
+                            IconButton(onClick = {
+                                navController.popBackStack()
+                            }) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = stringResource(R.string.back)
+                                )
+                            }
                         }
                     }
+
                 }
             )
         }
