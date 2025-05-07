@@ -7,7 +7,11 @@ import java.net.URLDecoder
 import java.net.URLEncoder
 
 @Serializable
-data class Breed(val breed: String, val subBreed: String? = null, val hasSubBreeds: Boolean = false) {
+data class Breed(
+    val breed: String,
+    val subBreed: String? = null,
+    val hasSubBreeds: Boolean = false
+) {
     fun getDisplayString() = (subBreed?.capitalize()?.plus(" ") ?: "") + breed.capitalize()
     fun getImagesIdentifier() = breed + (subBreed?.let { "/$it" } ?: "")
     fun encodeClass(): String = try {
@@ -18,7 +22,7 @@ data class Breed(val breed: String, val subBreed: String? = null, val hasSubBree
 
     companion object {
         fun decodeClass(encodedBreed: String): Breed {
-            val decoded = URLDecoder.decode(encodedBreed,  Charsets.UTF_8.name())
+            val decoded = URLDecoder.decode(encodedBreed, Charsets.UTF_8.name())
             return Json.decodeFromString<Breed>(decoded)
         }
     }

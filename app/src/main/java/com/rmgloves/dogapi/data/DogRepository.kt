@@ -22,14 +22,15 @@ class DogRepository @Inject constructor(
         response.message.flatMap { (breed, subBreeds) ->
             // if there is only 1 sub breed then just treat it as a dog without a sub breed
             listOf(Breed(breed = breed, hasSubBreeds = subBreeds.size > 1)) +
-            subBreeds.map { sub ->
-                Breed(breed = breed, subBreed = sub)
-            }
+                    subBreeds.map { sub ->
+                        Breed(breed = breed, subBreed = sub)
+                    }
         }
     }
 
     suspend fun getBreedImages(breed: Breed): NetworkResult<List<String>> = safeApiCall {
-        dogApiService.getBreedImages(breed.getImagesIdentifier()).message
+        val identifier = breed.getImagesIdentifier()
+        dogApiService.getBreedImages(identifier).message
     }
 
     private suspend fun <T> safeApiCall(

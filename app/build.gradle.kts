@@ -1,5 +1,3 @@
-import org.gradle.internal.composite.CommandLineIncludedBuildSettingsLoader
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -73,6 +71,7 @@ dependencies {
 
     // OkHttp
     implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
 
     // Retrofit
     implementation(libs.retrofit)

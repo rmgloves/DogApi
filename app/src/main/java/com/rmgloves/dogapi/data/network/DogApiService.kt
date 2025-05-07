@@ -11,5 +11,10 @@ interface DogApiService {
     suspend fun getAllDogBreeds(): BreedsResult
 
     @GET("breed/{breedIdentifier}/images")
-    suspend fun getBreedImages(@Path("breedIdentifier") breedIdentifier: String): ImagesResult
+    suspend fun getBreedImages(
+        @Path(
+            "breedIdentifier",
+            encoded = true
+        ) breedIdentifier: String
+    ): ImagesResult
 }
