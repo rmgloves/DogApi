@@ -21,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -49,28 +50,9 @@ fun DogApiNavigation() {
                     )
                 },
                 navigationIcon = {
-                    AnimatedContent(
-                        targetState = showBackButton,
-                        transitionSpec = {
-                            ContentTransform(
-                                targetContentEnter = fadeIn(),
-                                initialContentExit = fadeOut()
-                            )
-                        },
-                        label = "navigation transition"
-                    ) { show ->
-                        if (show) {
-                            IconButton(onClick = {
-                                navController.popBackStack()
-                            }) {
-                                Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = stringResource(R.string.back)
-                                )
-                            }
-                        }
+                    AnimatedNavigationIcon(showIcon = showBackButton) {
+                        navController.popBackStack()
                     }
-
                 }
             )
         }
@@ -96,6 +78,34 @@ fun DogApiNavigation() {
                 title = decodedBreed.getDisplayString()
                 showBackButton = true
                 BreedPhotos(decodedBreed)
+            }
+        }
+    }
+}
+
+@Composable
+fun AnimatedNavigationIcon(
+    imageVector: ImageVector = Icons.AutoMirrored.Filled.ArrowBack,
+    contentDescription: String = stringResource(R.string.back),
+    showIcon: Boolean,
+    onClick: () -> Unit
+) {
+    AnimatedContent(
+        targetState = showIcon,
+        transitionSpec = {
+            ContentTransform(
+                targetContentEnter = fadeIn(),
+                initialContentExit = fadeOut()
+            )
+        },
+        label = "navigation transition"
+    ) { show ->
+        if (show) {
+            IconButton(onClick = onClick) {
+                Icon(
+                    imageVector = imageVector,
+                    contentDescription = contentDescription
+                )
             }
         }
     }
