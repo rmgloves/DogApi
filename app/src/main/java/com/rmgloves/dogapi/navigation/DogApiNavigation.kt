@@ -71,9 +71,9 @@ fun DogApiNavigation() {
             }
             composable(
                 route = Screen.BreedPhotos.route,
-                arguments = listOf(navArgument("encodedBreed") { type = NavType.StringType })
+                arguments = listOf(navArgument(Screen.ARG_BREED) { type = NavType.StringType })
             ) {
-                val encodedBreed = requireNotNull(it.arguments?.getString("encodedBreed"))
+                val encodedBreed = requireNotNull(it.arguments?.getString(Screen.ARG_BREED))
                 val decodedBreed = Breed.decodeClass(encodedBreed)
                 title = decodedBreed.getDisplayString()
                 showBackButton = true
