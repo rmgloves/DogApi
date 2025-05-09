@@ -32,6 +32,7 @@ import com.rmgloves.dogapi.R
 import com.rmgloves.dogapi.data.model.Breed
 import com.rmgloves.dogapi.ui.breedlist.BreedList
 import com.rmgloves.dogapi.ui.breedphotos.BreedPhotos
+import com.rmgloves.dogapi.ui.breedphotos.PhotoDetail
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,6 +40,7 @@ fun DogApiNavigation() {
     val navController = rememberNavController()
     var title by rememberSaveable { mutableStateOf("") }
     var showBackButton by rememberSaveable { mutableStateOf(false) }
+
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -77,7 +79,19 @@ fun DogApiNavigation() {
                 val decodedBreed = Breed.decodeClass(encodedBreed)
                 title = decodedBreed.getDisplayString()
                 showBackButton = true
-                BreedPhotos(decodedBreed)
+                BreedPhotos(decodedBreed) { images, index ->
+                    navController.navigate(Screen.PhotoDetail.createRoute(images, index))
+                }
+            }
+            composable(
+                route = Screen.PhotoDetail.route,
+                arguments = listOf(navArgument(Screen.ARG_DETAIL_INDEX) { type = NavType.IntType })
+            ) {
+                val images =
+                    requireNotNull(it.arguments?.getString(Screen.ARG_DETAIL_IMAGES)).split(",")
+                val index = requireNotNull(it.arguments?.getInt(Screen.ARG_DETAIL_INDEX))
+                showBackButton = true
+                PhotoDetail(images, index)
             }
         }
     }

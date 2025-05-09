@@ -25,7 +25,9 @@ class BreedPhotosViewModel @Inject constructor(
             _state.emit(
                 when (val result = dogRepository.getBreedImages(breed)) {
                     is NetworkResult.Error -> BreedPhotosState.Error(result.error)
-                    is NetworkResult.Success<List<String>> -> BreedPhotosState.Success(result.data)
+                    is NetworkResult.Success<List<String>> -> {
+                        BreedPhotosState.Success(result.data)
+                    }
                 }
             )
         }

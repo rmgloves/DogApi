@@ -10,6 +10,8 @@
     <string name="retry">Retry</string>
     <string name="search">Search</string>
     <string name="back">Back</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
 
     <!-- Errors -->
     <string name="error_generic">Something went wrong</string>
